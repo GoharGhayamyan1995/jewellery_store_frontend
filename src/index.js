@@ -5,12 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import {FavoriteListProvider} from './FavoriteListContext'
+import { CartProvider } from './CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   < BrowserRouter >
 <UserProvider>
+< CartProvider>
+<FavoriteListProvider>
     <App />
+    </FavoriteListProvider>
+    </CartProvider>
     </UserProvider>
     </BrowserRouter >
 );

@@ -3,6 +3,7 @@ import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import { useContext } from 'react';
+import { decodeToken } from 'react-jwt';
 
 
 
@@ -21,6 +22,7 @@ const AuthRegistrationForm = () => {
   const [error, setError] = useState('');
   const [errorLogin,setErrorLogin]=useState('')
   const [successMessage, setSuccessMessage] = useState('');
+  
   // const navigate = useNavigate();
 
 
@@ -88,6 +90,7 @@ const handleLogin = (e) => {
       .then((data) => {
         // Your code for successful login handling
         localStorage.setItem('token', data.jwt);
+
         // setUser((prevUser) => ({ ...prevUser, userName: data.userName }));
          // Обновление состояния user
          const { userName, role, jwt } = data;
@@ -98,6 +101,7 @@ const handleLogin = (e) => {
         console.log(data);
         if (data.error) {
           setErrorLogin(data.error);
+          
         // } else {
         //   setErrorLogin("An error occurred. Please try again later.");
         }  // Обновление состояния user

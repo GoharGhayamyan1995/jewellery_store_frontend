@@ -1,18 +1,22 @@
 
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useContext} from 'react';
 import { decodeToken } from 'react-jwt';
 import './CartProduct.css'; // Импортируйте стили
 import cross from './cross.png'
+import { CartContext } from '../CartContext';
+
 
 
 function CartProduct() {
- 
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const [cartProducts, setCartProducts] = useState([]);
+  const { cartProducts: contextCartProducts, setCartProducts: setContextCartProducts } = useContext(CartContext);
  
 
   useEffect(() => {
-   
     const fetchCartProducts = async () => {
       try {
         const user = localStorage.getItem('token');
@@ -23,7 +27,8 @@ function CartProduct() {
           const response = await fetch(`http://localhost:3002/cartProduct/${id}`);
           const cartProductData = await response.json();
           setCartProducts(cartProductData);
-          console.log(cartProductData)
+          setContextCartProducts(cartProductData);
+          console.log(cartProductData);
         }
       } catch (error) {
         console.error(error);
@@ -31,7 +36,7 @@ function CartProduct() {
     };
 
     fetchCartProducts();
-  }, []);
+  }, [setContextCartProducts]);
 
   const handleDeleteCartProduct = async (id) => {
    
@@ -42,6 +47,7 @@ function CartProduct() {
       });
       // Obyazatel'no ne zabud'te obnovit' spisok izbrannykh produktov
       setCartProducts((prevProducts) => prevProducts.filter((item) => item.id !== id));
+
     } catch (error) {
       console.error(error);  
     }
@@ -75,6 +81,18 @@ function CartProduct() {
     }
   };
 
+  useEffect(() => {
+    // Пересчитываем общую цену при изменении cartProducts
+    const calculateTotalPrice = () => {
+      let totalPrice = 0;
+      cartProducts.forEach((product) => {
+        totalPrice += product.Product.price * product.quantity;
+      });
+      setTotalPrice(totalPrice);
+    };
+  
+    calculateTotalPrice();
+  }, [cartProducts]);
 
 
 
@@ -89,14 +107,18 @@ function CartProduct() {
           <img src={cross} alt="" onClick={() => handleDeleteCartProduct(product.id)} />
           <img className="cart-product-image" src={`http://localhost:3002/${product.Product.image}`} alt={product.Product.name} />
           <p className="cart-product-name">{product.Product.name}</p>
-          <p className="cart-product-price">{product.Product.price}</p>
+          <p className="cart-product-price">AMD {product.Product.price}</p>
           <button onClick={() => updateQuantity(product.id, product.quantity + 1)}>+</button>
        
       <input value={product.quantity} readOnly  />
     
           <button onClick={() => updateQuantity(product.id, product.quantity - 1)}>-</button>
+       
         </div>
       )))}
+       <div>
+        <p>Общая цена: {totalPrice}</p>
+       </div>
     </div>
   );
 }

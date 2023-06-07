@@ -1,28 +1,27 @@
-import { useState , useEffect} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../Header/Header.css';
 import montirulogo1 from '../../Layouts/Header/image/montirulogo1.jpg';
 import heart from '../../Layouts/Header/image/heart.png';
 import shoppingbag from '../../Layouts/Header/image/shopping-bag.png';
-import key from '../../Layouts/Header/image/key.png';
-import key1 from '../../Layouts/Header/image/free-icon-key-705755.png'
-import key2 from '../../Layouts/Header/image/icons8-key.png'
+import key2 from '../../Layouts/Header/image/icons8-key.png';
 import search from '../../Layouts/Header/image/search.png';
-import arrow from '../../Layouts/Header/image/icons8-arrow.png'
-import  { useContext } from 'react';
-import { UserContext } from '../../UserContext'
-import { decodeToken } from 'react-jwt';
+import arrow from '../../Layouts/Header/image/icons8-arrow.png';
+import { UserContext } from '../../UserContext';
+import { FavoriteListContext } from '../../FavoriteListContext';
+import { CartContext } from '../../CartContext';
+import { useNavigate } from 'react-router-dom';
 
+function Header({ searchResults, setSearchResults }) {
+  const navigate=useNavigate()
 
+  const { cartProducts} = useContext(CartContext);
+  const { favoriteItems} = useContext(FavoriteListContext);
 
-function Header({ searchResults, setSearchResults}) {
-  // const { data } = useContext(UserContext);
-  const {user,setUser}= useContext(UserContext);
-
-
+  const { user, setUser } = useContext(UserContext);
   const [query, setQuery] = useState('');
   const [categories, setCategories] = useState([]);
- 
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -33,9 +32,9 @@ function Header({ searchResults, setSearchResults}) {
       const response = await fetch(`http://localhost:3002/search`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ query }),
       });
 
       if (response.ok) {
@@ -49,10 +48,12 @@ function Header({ searchResults, setSearchResults}) {
       console.error(error);
     }
   };
+
   useEffect(() => {
     fetchCategories();
     restoreUserFromLocalStorage();
   }, []);
+
   const fetchCategories = async () => {
     try {
       const response = await fetch('http://localhost:3002/category');
@@ -66,71 +67,98 @@ function Header({ searchResults, setSearchResults}) {
       console.error(error);
     }
   };
- 
 
-const restoreUserFromLocalStorage = () => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    const decoded = decodeToken(token);
-    const user = { userName: decoded.userName };
-    setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-};
+  const restoreUserFromLocalStorage = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setUser({ userName: user.userName });
+    }
+  };
 
+  useEffect(() => {
+    if (user.userName) {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  }, [user]);
+
+  const handleLogout = () => {
+    setUser("");
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('favoriteItems');
+    localStorage.removeItem('cartProducts');
+    localStorage.removeItem('cartProductsCount');
+    navigate('/');
+
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   return (
     <div className="header-wrapper">
-  
       <header>
         <div className="logotip">
           <div className="logo">
+            <Link to="/">
             <img src={montirulogo1} alt="" />
+            </Link>
           </div>
           <div className="icons">
             <div className="icon">
               <Link to="/favoritelist">
-              <img src={heart} alt="" /><span>0</span></Link>
+                <img src={heart} alt="" />
+                <span>{favoriteItems.length}</span>
+              </Link>
             </div>
             <div className="icon">
-            <Link to="/cart"><img src={shoppingbag} alt="" /><span>0</span></Link>
+              <Link to="/cart">
+                <img src={shoppingbag} alt="" />
+                <span>{cartProducts.length}</span>
+              </Link>
             </div>
-            {/* <Link to="/auth">
-            <div className="icon">
-            <img src={key2} alt="" /> <p>voyti</p>
-            </div>
-            </Link> */}
- {user.userName ? (
-  <div className="icon">
-    <img src={key2} alt="" />
-    <span>{user.userName}</span><img src={arrow} alt=""/>
-  </div>
-) : (
-  <div className="icon">
-    <img src={key2} alt="" />
-    <Link to="/auth"><span className='login'>Войти</span></Link>
-  </div>
-)}
+            {user.userName ? (
+              <div className="icon">
+                <img src={key2} alt="" onClick={toggleDropdown} />
+                <span>{user.userName}</span>
+                <img src={arrow} alt="" onClick={toggleDropdown} />
+                {showDropdown && (
+                  <div className="dropdown">
+                    
+                      <p onClick={handleLogout}>Logout</p>
+                    
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="icon">
+                <img src={key2} alt="" />
+                <Link to="/auth">
+                  <span className="login">Войти</span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
         <div className="nav">
-        <div className="categories">
-          {categories.map((category) => (
-            <span key={category.id}>   <Link  to={`/products/${category.id}`}>{category.name}  </Link></span>
-          ))}
-        </div>
+          <div className="categories">
+            {categories.map((category) => (
+              <span key={category.id}>
+                <Link to={`/products/${category.id}`}>{category.name}</Link>
+              </span>
+            ))}
+          </div>
           <div className="search">
             <input type="text" placeholder="որոնում․․․" value={query} onChange={handleInputChange} />
             <Link to="/search">
-            <button className="search-button" onClick={handleSearch}>
-              <img src={search} alt=" " />
-            </button>
-          </Link>
+              <button className="search-button" onClick={handleSearch}>
+                <img src={search} alt=" " />
+              </button>
+            </Link>
           </div>
         </div>
-      
-          
-        
       </header>
     </div>
   );

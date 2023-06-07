@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useParams,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function ProductList() {
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    fetchProductsByCategory(categoryId);
-  }, [categoryId]);
+    fetchProductsByCategory(categoryId, currentPage);
+  }, [categoryId, currentPage]);
 
-  const fetchProductsByCategory = async (categoryId) => {
+  const fetchProductsByCategory = async (categoryId, page) => {
     try {
-      const response = await fetch(`http://localhost:3002/product/category/${categoryId}`);
+      const response = await fetch(`http://localhost:3002/product/category/${categoryId}?page=${page}`);
       if (response.ok) {
         const responseData = await response.json();
-        const productsData = responseData.rows; // Используйте свойство "rows" для получения массива продуктов
+        const productsData = responseData.products;
+        const totalPagesData = responseData.totalPages;
         setProducts(productsData);
+        setTotalPages(totalPagesData);
       } else {
         console.error('Failed to fetch products for category');
       }
@@ -24,21 +28,56 @@ function ProductList() {
     }
   };
 
- 
-    return (
-        <div>
-          {products.map((product) => (
-            <div key={product.id}>
-                <Link  to={`/product/${product.id}`}>
-                 <img src={`http://localhost:3002/${product?.image}`} alt={product.name} />
-              <h3>{product.name}</h3>
-              <p> AMD {product.price}</p>
-              </Link>
-            </div>
-          ))}
-        </div>
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
+  };
+
+  const renderPageButtons = () => {
+    const pageButtons = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageButtons.push(
+        <button key={i} onClick={() => handlePageClick(i)}>
+          {i}
+        </button>
       );
     }
- 
+    return pageButtons;
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  return (
+    <div>
+      {products.map((product) => (
+        <div key={product.id}>
+          <Link to={`/product/${product.id}`}>
+            <img src={`http://localhost:3002/${product?.image}`} alt={product.name} />
+            <h3>{product.name}</h3>
+            <p>AMD {product.price}</p>
+          </Link>
+        </div>
+      ))}
+      <div>
+        {currentPage > 1 && (
+          <button onClick={handlePreviousPage}>Previous</button>
+        )}
+        {renderPageButtons()}
+        {currentPage < totalPages && (
+          <button onClick={handleNextPage}>Next</button>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default ProductList;

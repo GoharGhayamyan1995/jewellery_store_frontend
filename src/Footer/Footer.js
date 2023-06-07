@@ -9,25 +9,27 @@ function Footer() {
      <div className='app'>
     <footer className="footer">
       <div className="column">
-        <h5>Контакты</h5>
+        <h5>Կոնտակտներ</h5>
         <ul>
-          <li>Телефон/viber/whatsApp: +37497344511</li>
-          <li>График работы: Пн-Пт, 9:00-18:00</li>
+          <li>հեռախոս/viber/whatsApp: +37497344511</li>
+          <li>Աշխատանքային գրաֆիկ: երկ-ուրբ, 9:00-18:00</li>
           <a href="https://www.facebook.com/handmademontiru" target="_blank" rel="noopener noreferrer"><img src={facebook} alt="" /></a>
           <a href="https://www.instagram.com/mon.tiru/" target="_blank" rel="noopener noreferrer"> <img src={instagram} alt="" /></a>
         </ul>
       </div>
       <div className="column">
-        <h5>Кто мы</h5>
+        <h5>Ով ենք մենք</h5>
         <ul>
-          <li>Наша команда</li>
-          <li>Наши магазины</li>
+          <li>Մեր մասին</li>
+          <li>Մեր հասցեն</li>
         </ul>
       </div>
       <div className="column">
-        <h5>Информация</h5>
+        <h5>Ինֆորմացիա</h5>
         <ul>
-          <li>Гарантия качества</li>
+          <Link to="/quality">
+          <li>Որակի երաշխավորում</li>
+          </Link>
           <li>Возврат товара</li>
           <li>Уход за бижутерией</li>
         </ul>

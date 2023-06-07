@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { decodeToken } from 'react-jwt';
 import './FavoriteItem.css'; // Импортируйте стили
+import { FavoriteListContext } from '../FavoriteListContext';
+
 import cross from '../CartProduct/cross.png'
 
 function FavoriteItem() {
   const [favoriteItems, setFavoriteItems] = useState([]);
+  const { favoriteItems: contextFavoriteItems, setFavoriteItems: setContextFavoriteItems } = useContext(FavoriteListContext);
 
   useEffect(() => {
    
@@ -18,6 +21,8 @@ function FavoriteItem() {
           const response = await fetch(`http://localhost:3002/favoriteitem/${id}`);
           const favoriteProductsData = await response.json();
           setFavoriteItems(favoriteProductsData);
+          setFavoriteItems(favoriteProductsData);
+          setContextFavoriteItems(favoriteProductsData);
           console.log(favoriteProductsData)
         }
       } catch (error) {

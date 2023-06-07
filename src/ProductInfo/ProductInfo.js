@@ -1,8 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { decodeToken } from "react-jwt";
+import free from '../ProductInfo/free-delivery.png'
+import whatsapp from '../ProductInfo/whatsapp.png'
+import '../ProductInfo/ProductInfo.css'
+
 
 export default function Product() {
+  // const { handleClick } = useContext(CountContext);
+
   const { id } = useParams();
   const [data, setData] = useState([]);
 
@@ -80,26 +86,38 @@ export default function Product() {
       <img src={`http://localhost:3002/${data.image}`} alt={data.name} />
       <div className="info">
         <h2>{data.name}</h2>
-        <p>{data.info}</p>
-        <h3>{data.price} AMD</h3>
-        <button
-          className="btn"
-          onClick={(e) => {
-            e.preventDefault();
-            addToCart(data.id);
-          }}
-        >
-          Add to cart
-        </button>
-        <button
-          className="btn"
-          onClick={(e) => {
-            e.preventDefault();
-            addToFavoriteList(data.id);
-          }}
-        >
-          Add to favoritelist
-        </button>
+        <h3>գինը` {data.price} AMD</h3>
+      
+        <p><b>մետաղի տեսակ՝</b> {data.metal}</p>
+        <p>{data.description}</p>
+        <div className="free">
+       <img src={free} alt="" /> <p>ԱՆվճար առաքում սկսած 5000 դրամից</p>
+       </div>
+       <div className="whatsapp">
+       <img src={whatsapp} alt="" /> <p>whatsapp բոլոր հարցերը</p>
+       </div>
+     
+       <div className="btn-container">
+  <button
+    className="btn"
+    onClick={(e) => {
+      e.preventDefault();
+      addToCart(data.id);
+    }}
+  >
+    Add to cart
+  </button>
+
+  <button
+    className="btn"
+    onClick={(e) => {
+      e.preventDefault();
+      addToFavoriteList(data.id);
+    }}
+  >
+    Add to favoritelist
+  </button>
+</div>
         
       </div>
     </div>
