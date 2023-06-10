@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState ,useContext} from 'react';
 import { decodeToken } from 'react-jwt';
 import './CartProduct.css'; // Импортируйте стили
@@ -13,9 +11,9 @@ function CartProduct() {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [cartProducts, setCartProducts] = useState([]);
-  const { cartProducts: contextCartProducts, setCartProducts: setContextCartProducts } = useContext(CartContext);
+  const { cartProducts: contextCartProducts,   setCartProducts: setContextCartProducts } = useContext(CartContext);
  
-
+  
   useEffect(() => {
     const fetchCartProducts = async () => {
       try {
@@ -65,6 +63,7 @@ function CartProduct() {
       if (quantity === 0) {
         // Если количество равно нулю, удаляем продукт из состояния cartProducts
         setCartProducts((prevProducts) => prevProducts.filter((item) => item.id !== id));
+
       } else {
         // Обновляем количество продукта в состоянии cartProducts
         setCartProducts((prevProducts) =>
@@ -82,7 +81,7 @@ function CartProduct() {
   };
 
   useEffect(() => {
-    // Пересчитываем общую цену при изменении cartProducts
+    
     const calculateTotalPrice = () => {
       let totalPrice = 0;
       cartProducts.forEach((product) => {
@@ -124,7 +123,6 @@ function CartProduct() {
 }
 
 export default CartProduct;
-
 
 
 

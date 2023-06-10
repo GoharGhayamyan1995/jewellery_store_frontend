@@ -1,9 +1,5 @@
-.foto-tatikpapik {
-    width: 90%; 
-    height: 500px;
-}
 
-.foto-tatikpapik {
+/* .foto-tatikpapik {
     width: 90%;
     height: 500px;
   }
@@ -16,6 +12,7 @@
   }
 
   
+  
   .line {
     border: none;
     border-top: 0.5px solid rgb(23, 43, 30);
@@ -27,28 +24,146 @@
     font-size: 18px;
     font-weight: bold;
   }
+.liniya{
+
+  width: 100%;
+  border: none;
+  border-top: 0.5px solid rgb(23, 43, 30);
+ 
+} 
+/* .latesproducts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+} */
+/* .latesproducts{
+  display: flex;
+  flex-wrap: wrap;
+}
+.latesproducts img {
+  width: 250px;
+  height: 250px;
+ 
+} */
+.foto-tatikpapik {
+  width: 90%;
+  height: 300px;
+}
 
 /* .line-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.line {
+  border: none;
+  border-top: 0.5px solid rgb(23, 43, 30);
+  width: 40%;
+  margin: 10px auto;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: bold;
+} */
+.line-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.line {
+  border: none;
+  border-top: 0.5px solid rgb(23, 43, 30);
+  width: 40%;
+  margin: 10px auto;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Респонсивные стили */
+@media only screen and (max-width: 768px) {
   .line {
-    flex-grow: 1;
-    border: none;
-    border-top: 2px dashed black;
+    width: 70% !important;
   }
-  
+
   .text {
-    padding: 0 10px;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px !important;
   }
-  
-  
-  
-  
-  
-   */
+}
+
+@media only screen and (max-width: 480px) {
+  .line {
+    width: 90% !important;
+  }
+
+  .text {
+    font-size: 14px !important;
+  }
+}
+.liniya {
+  width: 100%;
+  border: none;
+  border-top: 0.5px solid rgb(23, 43, 30);
+}
+
+.latesproducts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.latesproducts img {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.latesproducts img:hover {
+  transform: scale(1.1);
+}
+.about p {
+  font-size: 16px;
+  line-height: 2;
+  color: #2c2525;
+  font-style: italic;
+}
+.text {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  text-transform: uppercase;
+  color: #333;
+  letter-spacing: 2px;
+}
+.latesproducts h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.latesproducts p {
+  font-size: 15px;
+  color: #333;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+

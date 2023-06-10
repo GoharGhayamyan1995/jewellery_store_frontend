@@ -3,7 +3,6 @@ header {
 
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   padding: 20px;
 }
 .header-wrapper {
@@ -22,7 +21,6 @@ header:after {
 
   display: flex;
   width: 100%;
-  /* justify-content: center; */
   margin-bottom: 20px;
   
 }
@@ -34,27 +32,21 @@ justify-content: center;
 }
 
 .logo img {
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
+ 
   height: 60px;
   width: 150px;
   margin-left:500px;
 }
 
 .icons {
-  /* background-color: blueviolet; */
   display: flex;
-  /* justify-content:right; */
   margin-left: auto;
-  /* flex-wrap: wrap; */
-  /* width: 100%;
-  margin-left: 20px; */
+ 
 }
 
 .icon {
   display: flex;
-  /* background-color: aquamarine; */
+
   align-items: flex-end;
   margin-left: 20px;
 
@@ -62,7 +54,6 @@ justify-content: center;
 
 .icon img {
   width: 19px;
-  /* margin-bottom: 10px; */
 }
 
 .icon span {
@@ -79,7 +70,150 @@ justify-content: center;
   align-items: center;
 }
 
-.categories{
+
+
+  .categories {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-left: 350px;
+    gap: 40px;
+   
+
+  }
+  .categories p{
+font-size: 14px;
+font-weight:500;
+text-transform: uppercase;
+/* letter-spacing: 2px; */
+color: #332a2a;
+transition: color 0.3s ease-in-out;
+  }
+   /* .categories p:hover {
+    color: #ff0000; 
+    cursor: pointer; 
+    text-decoration: underline; 
+  }   */
+  
+  .categories p::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 1px;
+    background-color: #332a2a; /* Use the same color as the text */
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .categories p:hover::after {
+    width: 100%; /* Expand the line to full width on hover */
+  }
+ 
+  .icons span {
+    text-decoration: none;
+    color: #1a1717;
+   
+  }
+  
+ 
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.search input[type='text'] {
+  height: 25px;
+  width: 100px;
+  padding-right: 30px;
+  border-radius: 10px;
+  border: solid 1px;
+}
+
+.search-button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-left: -30px;
+}
+
+.search-button img {
+  display: block;
+  height: 15px;
+  width: 15px;
+  margin: auto;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.header-wrapper {
+  position: relative;
+}
+
+header:after {
+  content: "";
+  width: 100%;
+  height: 0.5px;
+  background-color: rgb(46, 54, 30);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.logotip {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  height: 60px;
+  width: 150px;
+  margin-left: 500px;
+}
+
+/* .icons {
+  display: flex;
+  margin-left: auto;
+}
+
+.icon {
+  display: flex;
+  align-items: flex-end;
+  margin-left: 20px;
+}
+
+.icon img {
+  width: 19px;
+}
+
+.icon span {
+  font-size: 15px;
+}
+
+.login span {
+  font-size: 14px;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.categories {
   display: flex;
   justify-content: center;
   font-family: 'Montserrat', sans-serif;
@@ -118,3 +252,39 @@ justify-content: center;
   width: 15px;
   margin: auto;
 }
+
+/* Респонсивные стили */
+/* .logotip {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.logo img {
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+.icons {
+  justify-content: center;
+  margin-left: 0;
+}
+
+.icon {
+  margin: 0 10px;
+}
+
+.categories {
+  margin-left: 0;
+  gap: 20px;
+}
+
+.search input[type='text'] {
+  width: auto;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.search-button {
+  margin-left: 0;
+}  */

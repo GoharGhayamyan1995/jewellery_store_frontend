@@ -12,7 +12,6 @@ export const CartProvider = ({ children }) => {
     if (storedCartProducts) {
       const parsedCartProducts = JSON.parse(storedCartProducts);
       setCartProducts(parsedCartProducts);
-      setCartProductsCount(parsedCartProducts.length);
     }
   }, []);
 
@@ -20,6 +19,8 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
     setCartProductsCount(cartProducts.length);
   }, [cartProducts]);
+    // Функция для добавления продукта в корзину
+
 
   return (
     <CartContext.Provider value={{ cartProducts, setCartProducts, cartProductsCount }}>
