@@ -6,8 +6,8 @@ import { FavoriteListContext } from '../FavoriteListContext';
 import cross from '../CartProduct/cross.png'
 
 function FavoriteItem() {
-  const [favoriteItems, setFavoriteItems] = useState([]);
-  const { favoriteItems: contextFavoriteItems, setFavoriteItems: setContextFavoriteItems } = useContext(FavoriteListContext);
+  // const [favoriteItems, setFavoriteItems] = useState([]);
+  const { favoriteItems, setFavoriteItems } = useContext(FavoriteListContext);
 
   useEffect(() => {
    
@@ -21,8 +21,8 @@ function FavoriteItem() {
           const response = await fetch(`http://localhost:3002/favoriteitem/${id}`);
           const favoriteProductsData = await response.json();
           setFavoriteItems(favoriteProductsData);
-          setFavoriteItems(favoriteProductsData);
-          setContextFavoriteItems(favoriteProductsData);
+          localStorage.setItem('favoriteItems', JSON.stringify(favoriteProductsData));
+          // setContextFavoriteItems(favoriteProductsData);
           console.log(favoriteProductsData)
         }
       } catch (error) {
@@ -31,7 +31,7 @@ function FavoriteItem() {
     };
 
     fetchFavoriteItems();
-  }, []);
+  }, [setFavoriteItems]);
 
   const handleDeleteFavoriteItem = async (id) => {
     try {
@@ -44,23 +44,28 @@ function FavoriteItem() {
       console.error(error);
     }
   };
-
   return (
     <div className="cart-products-container">
-      <h1>Продукты :</h1>
+      <h1>Избранные продукты:</h1>
       {favoriteItems.length === 0 ? (
         <p>Ваш список избранных пуст</p>
       ) : (
+
         favoriteItems.map((product) => (
-          <div className="cart-product-card" key={product.Product.id}>
+          <div className="cart-product-card" key={product?.Product?.id}>
+
             <img src={cross} alt="" onClick={() => handleDeleteFavoriteItem(product.id)} />
-            <img
-              className="cart-product-image"
-              src={`http://localhost:3002/${product.Product.image}`}
-              alt={product.Product.name}
-            />
-            <p className="cart-product-name">{product.Product.name}</p>
-            <p className="cart-product-price">{product.Product.price}</p>
+            {product.Product && (
+              <>
+                <img
+                  className="cart-product-image"
+                  src={`http://localhost:3002/${product.Product.image}`}
+                  alt={product.Product.name}
+                />
+                <p className="cart-product-name">{product.Product.name}</p>
+                <p className="cart-product-price">{product.Product.price}</p>
+              </>
+            )}
           </div>
         ))
       )}

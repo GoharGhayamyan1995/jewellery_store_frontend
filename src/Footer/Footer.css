@@ -23,9 +23,29 @@
   }
   
   ul li {
+    font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
     margin-bottom: 10px;
-    color: rgb(223, 216, 207);
+    color: rgb(212, 198, 179);
   }
   .column h5{
-    color: rgb(223, 216, 207);
-  }
+    
+      font-size: 12px;
+      font-weight: bold;
+   
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    
+      color: rgb(212, 198, 179);
+    }
+    .about p{
+      font-size: 16px;
+      /* font-weight: bold; */
+      font-style: italic;
+        margin-bottom: 10px
+    }
+    .about img{
+      width: 700px;
+      height: 500px;
+    }

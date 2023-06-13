@@ -10,6 +10,8 @@ import Quality from './Footer/Quality';
 import AuthRegistrationForm from './LoginRegister/AuthRegistrationForm';
 import CartProduct from './CartProduct/CartProduct';
 import FavoriteItem from './FavoriteItem/FavoriteItem';
+import About from './Footer/About'
+import Shops from './Footer/Shops'
 
 function App() {
   
@@ -27,6 +29,10 @@ function App() {
     <Route path="/cart" element={<CartProduct />}/>
     <Route path="/favoritelist" element={<FavoriteItem />}/>
     <Route path="/quality" element={<Quality/>}/>
+    <Route path="/about" element={<About/>}/>
+    <Route path="/shops" element={<Shops/>}/>
+
+
     </Routes>
 <Footer/>
     </div>

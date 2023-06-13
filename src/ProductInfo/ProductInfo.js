@@ -1,89 +1,103 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { decodeToken } from "react-jwt";
 import free from '../ProductInfo/free-delivery.png'
 import whatsapp from '../ProductInfo/whatsapp.png'
 import '../ProductInfo/ProductInfo.css'
+import { CartContext } from "../CartContext";
+import { FavoriteListContext } from "../FavoriteListContext";
+
 
 
 export default function Product() {
   // const { handleClick } = useContext(CountContext);
 
   const { id } = useParams();
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState({});
+  const { addToCart } = useContext(CartContext);
+  const { addToFavoriteList } = useContext(FavoriteListContext);
   useEffect(() => {
-    fetch(`http://localhost:3002/one/${id}`)
+    console.log(data, "data");
+    console.log('ID:', id); 
+    fetch('http://localhost:3002/one/' + id)
       .then((res) => res.json())
       .then((res) => setData(res));
-  }, []);
+  }, [data, id]);
 
-  async function addToCart(productId) {
-    try {
-      const user = localStorage.getItem("token");
-      if (user) {
-        const decoded = decodeToken(user);
-        console.log(decoded);
-        const requestData = {
-          productId,
-          userId: decoded.id,
-          quantity: 1,
-        };
+  
+  // useEffect(() => {
+  //   fetch(`http://localhost:3002/one/${id}`)
+  //     .then((res) => res.json())
+  //     .then((res) => setData(res));
+  // }, []);
 
-        const response = await fetch("http://localhost:3002/cartproduct", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        });
 
-        if (response.ok) {
-          const responseData = await response.json();
-          console.log(responseData, "data");
-        } else {
-          console.error("Error occurred while adding to cart:", response.status);
-        }
-      }
-    } catch (error) {
-      console.error("Error occurred while adding to cart:", error);
-    }
-  }
-  async function addToFavoriteList(productId) {
-    try {
-      const user = localStorage.getItem("token");
-      if (user) {
-        const decoded = decodeToken(user);
-        console.log(decoded);
-        const reqData = {
-          productId,
-          userId: decoded.id,
+  // async function addToCart(productId) {
+  //   try {
+  //     const user = localStorage.getItem("token");
+  //     if (user) {
+  //       const decoded = decodeToken(user);
+  //       console.log(decoded);
+  //       const requestData = {
+  //         productId,
+  //         userId: decoded.id,
+  //         quantity: 1,
+  //       };
+
+  //       const response = await fetch("http://localhost:3002/cartproduct", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(requestData),
+  //       });
+
+  //       if (response.ok) {
+  //         const responseData = await response.json();
+  //         console.log(responseData, "data");
+  //       } else {
+  //         console.error("Error occurred while adding to cart:", response.status);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error occurred while adding to cart:", error);
+  //   }
+  // }
+  // async function addToFavoriteList(productId) {
+  //   try {
+  //     const user = localStorage.getItem("token");
+  //     if (user) {
+  //       const decoded = decodeToken(user);
+  //       console.log(decoded);
+  //       const reqData = {
+  //         productId,
+  //         userId: decoded.id,
          
-        };
+  //       };
 
-        const response = await fetch("http://localhost:3002/favoriteitem", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reqData),
-        });
+  //       const response = await fetch("http://localhost:3002/favoriteitem", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(reqData),
+  //       });
 
-        if (response.ok) {
-          const resData = await response.json();
-          console.log(resData, "data");
-        } else {
-          console.error("Error occurred while adding to favoritelist:", response.status);
-        }
-      }
-    } catch (error) {
-      console.error("Error occurred while adding to favoritelist:", error);
-    }
-  }
+  //       if (response.ok) {
+  //         const resData = await response.json();
+  //         console.log(resData, "data");
+  //       } else {
+  //         console.error("Error occurred while adding to favoritelist:", response.status);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error occurred while adding to favoritelist:", error);
+  //   }
+  // }
 
   return (
     <div className="more_info">
-      <img src={`http://localhost:3002/${data.image}`} alt={data.name} />
+<img src={data?.image ? `http://localhost:3002/${data.image}` : ''} alt={data && data.name} />
       <div className="info">
         <h2>{data.name}</h2>
         <h3>գինը` {data.price} AMD</h3>

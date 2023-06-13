@@ -15,8 +15,8 @@ import { useNavigate } from 'react-router-dom';
 function Header({ searchResults, setSearchResults }) {
   const navigate=useNavigate()
 
-  const { cartProducts,setCartProducts} = useContext(CartContext);
-  const { favoriteItems,setFavoriteItems} = useContext(FavoriteListContext);
+  const { cartProducts,setCartProducts,cartProductsCount} = useContext(CartContext);
+  const { favoriteItems,setFavoriteItems,itemsCount} = useContext(FavoriteListContext);
 
   const { user, setUser } = useContext(UserContext);
   const [query, setQuery] = useState('');
@@ -52,6 +52,9 @@ function Header({ searchResults, setSearchResults }) {
   useEffect(() => {
     fetchCategories();
     restoreUserFromLocalStorage();
+    restoreCartProductsFromLocalStorage(); 
+    restoreFavoriteItemsFromLocalStorage()// Восстановление товаров в корзине из localStorage
+
   }, []);
 
   const fetchCategories = async () => {
@@ -75,12 +78,39 @@ function Header({ searchResults, setSearchResults }) {
       setUser({ userName: user.userName });
     }
   };
+  const restoreCartProductsFromLocalStorage = () => {
+    const storedCartProducts = localStorage.getItem('cartProducts');
+    if (storedCartProducts) {
+      const cartProducts = JSON.parse(storedCartProducts);
+      setCartProducts(cartProducts);
+    }
+  };
+
+  const restoreFavoriteItemsFromLocalStorage = () => {
+    const storedFavoriteItems= localStorage.getItem('favoriteItems');
+    if (storedFavoriteItems) {
+      const favoriteItems = JSON.parse(storedFavoriteItems);
+      setFavoriteItems(favoriteItems);
+    }
+  };
 
   useEffect(() => {
     if (user.userName) {
       localStorage.setItem('user', JSON.stringify(user));
     }
   }, [user]);
+
+  useEffect(() => {
+    if (cartProducts.length > 0) {
+      localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+    }
+  }, [cartProducts]);
+
+  useEffect(() => {
+    if (favoriteItems.length > 0) {
+      localStorage.setItem('favoriteItems', JSON.stringify(favoriteItems));
+    }
+  }, [favoriteItems]);
 
   
     const handleLogout = () => {
@@ -90,8 +120,8 @@ function Header({ searchResults, setSearchResults }) {
       localStorage.removeItem('cartProducts');
     
       setUser('');
-      setFavoriteItems([]); // Обновление значения favoriteItems
-      setCartProducts([]); // Обновление значения cartProducts
+       setFavoriteItems(''); 
+      setCartProducts(''); 
       navigate('/');
     };
 
@@ -112,13 +142,13 @@ function Header({ searchResults, setSearchResults }) {
             <div className="icon">
               <Link to="/favoritelist"style={{ textDecoration: 'none' }}>
                 <img src={heart} alt="" />
-                <span>{favoriteItems.length}</span>
+                <span>{itemsCount}</span>
               </Link>
             </div>
             <div className="icon">
               <Link to="/cart"style={{ textDecoration: 'none' }}>
                 <img src={shoppingbag} alt="" />
-                <span>{cartProducts.length}</span>
+                <span>{cartProductsCount}</span>
               </Link>
             </div>
             {user.userName ? (

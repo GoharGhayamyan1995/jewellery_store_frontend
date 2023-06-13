@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import { useContext } from 'react';
 import { decodeToken } from 'react-jwt';
+import { CartContext } from '../CartContext';
+import { FavoriteListContext } from '../FavoriteListContext';
+
 import '../LoginRegister/AuthRegitrationForm.css';
 
 const AuthRegistrationForm = () => {
@@ -19,6 +22,10 @@ const AuthRegistrationForm = () => {
   const [error, setError] = useState('');
   const [errorLogin, setErrorLogin] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const { setCartProducts} = useContext(CartContext);
+  const { setFavoriteItems } = useContext(FavoriteListContext);
+
+  
 
   const handleRegistration = (e) => {
   e.preventDefault();
@@ -45,23 +52,63 @@ const AuthRegistrationForm = () => {
         setPassword('');
         setPhone('');
         return response.json();
-      } else {
-        throw new Error('Registration failed');
-      }
-    })
-    .then((data) => {
-      if (data.error) {
-        setError(data.error);
-        setSuccessMessage('');
-      } else {
-        setError('');
-        setSuccessMessage(data.message);
+      }  else {
+        return response.json().then((data) => {
+          if (data.error) {
+            setError(data.error);
+          }
+        });
       }
     })
     .catch((error) => {
       setError('Ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
-      setSuccessMessage('');
     });
+};
+//     .then((data) => {
+//       if (data.error) {
+//         setError(data.error);
+//         setSuccessMessage('');
+//       } else {
+//         setError('');
+//         setSuccessMessage(data.message);
+//       }
+//     })
+
+const fetchCartProducts = async () => {
+  try {
+    const user = localStorage.getItem('token');
+    if (user) {
+      const decoded = decodeToken(user);
+      const id = decoded.id;
+
+      const response = await fetch(`http://localhost:3002/cartProduct/${id}`);
+      const cartProductData = await response.json();
+      setCartProducts(cartProductData);
+      localStorage.setItem('cartProducts', JSON.stringify(cartProductData));
+      console.log(cartProductData);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+const fetchFavoriteItems = async () => {
+  try {
+    const user = localStorage.getItem('token');
+    if (user) {
+      const decoded = decodeToken(user);
+      const id = decoded.id;
+
+      const response = await fetch(`http://localhost:3002/favoriteitem/${id}`);
+      const favoriteProductsData = await response.json();
+      setFavoriteItems(favoriteProductsData);
+      // setContextFavoriteItems(favoriteProductsData);
+      localStorage.setItem('favoriteItems', JSON.stringify(favoriteProductsData));
+
+      console.log(favoriteProductsData)
+  } 
+} catch (error) {
+  console.error(error);
+}
 };
 
   const handleLogin = (e) => {
@@ -86,6 +133,9 @@ const AuthRegistrationForm = () => {
         }
         if (data.role === 'user') {
           navigate('/');
+          fetchCartProducts();
+          fetchFavoriteItems()
+
         } else {
           navigate('/auth');
         }

@@ -17,7 +17,7 @@ function Home() {
       if (response.ok) {
         const data = await response.json();
         setLatestProducts(data.latestProducts);
-        console.error('Failed to fetch latest products:', response.status, response.statusText);
+        console.log('Failed to fetch latest products:', response.status, response.statusText);
       }
     } catch (error) {
       console.error('Error while fetching latest products:', error);
@@ -40,8 +40,7 @@ function Home() {
         {latestProducts.map((product) => (
           <Link to={`/product/${product.id}`} key={product.id}style={{ textDecoration: 'none' }}>
             <div>
-              <img src={`http://localhost:3002/${product?.image}`} alt={product.name} />
-              <h3>{product.name}</h3>
+            <img src={product?.image ? `http://localhost:3002/${product.image}` : ''} alt={product?.name} />              <h3>{product.name}</h3>
               <p>AMD {product.price}</p>
             </div>
           </Link>

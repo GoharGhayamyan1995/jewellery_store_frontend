@@ -20,14 +20,18 @@ function Footer() {
       <div className="column">
         <h5>Ով ենք մենք</h5>
         <ul>
+        <Link to="/about" style={{ textDecoration: 'none' }}>
           <li>Մեր մասին</li>
+          </Link>
+          <Link to="/shops" style={{ textDecoration: 'none' }}>
           <li>Մեր հասցեն</li>
+          </Link>
         </ul>
       </div>
       <div className="column">
         <h5>Ինֆորմացիա</h5>
         <ul>
-          <Link to="/quality">
+          <Link to="/quality"style={{ textDecoration: 'none' }}>
           <li>Որակի երաշխավորում</li>
           </Link>
           <li>Возврат товара</li>

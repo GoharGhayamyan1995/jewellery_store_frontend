@@ -10,8 +10,8 @@ function CartProduct() {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const [cartProducts, setCartProducts] = useState([]);
-  const { cartProducts: contextCartProducts,   setCartProducts: setContextCartProducts } = useContext(CartContext);
+  // const [cartProducts, setCartProducts] = useState([]);
+  const { cartProducts, setCartProducts } = useContext(CartContext);
  
   
   useEffect(() => {
@@ -25,31 +25,37 @@ function CartProduct() {
           const response = await fetch(`http://localhost:3002/cartProduct/${id}`);
           const cartProductData = await response.json();
           setCartProducts(cartProductData);
-          setContextCartProducts(cartProductData);
+          // setContextCartProducts(cartProductData);
+          localStorage.setItem('cartProducts', JSON.stringify(cartProductData)); // Добавлено обновление localStorage
           console.log(cartProductData);
         }
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchCartProducts();
-  }, [setContextCartProducts]);
+  }, [setCartProducts]);
 
   const handleDeleteCartProduct = async (id) => {
-   
     try {
-      console.log(id)
+      console.log(id);
       await fetch(`http://localhost:3002/cartproduct/${id}`, {
         method: 'DELETE',
       });
-      // Obyazatel'no ne zabud'te obnovit' spisok izbrannykh produktov
-      setCartProducts((prevProducts) => prevProducts.filter((item) => item.id !== id));
+  
+      // Удаляем продукт из состояния cartProducts
+      setCartProducts((prevProducts) =>
+      prevProducts.filter((item) => item.id !== id)
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-    } catch (error) {
-      console.error(error);  
-    }
-  };
+useEffect(() => {
+  // Обновляем localStorage при изменении cartProducts
+  localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+}, [cartProducts]);
 
   const updateQuantity = async (id, quantity) => {
     try {
@@ -85,7 +91,7 @@ function CartProduct() {
     const calculateTotalPrice = () => {
       let totalPrice = 0;
       cartProducts.forEach((product) => {
-        totalPrice += product.Product.price * product.quantity;
+        totalPrice += product?.Product?.price * product.quantity;
       });
       setTotalPrice(totalPrice);
     };
@@ -99,20 +105,24 @@ function CartProduct() {
     <div className="cart-products-container">
       <h1>Продукты в корзине:</h1>
       {cartProducts.length === 0 ? (
-        <p>Ваш список избранных пуст</p>
-      ) : (
-      cartProducts.map((product) => (
-        <div className="cart-product-card" key={product.Product.id}>
-          <img src={cross} alt="" onClick={() => handleDeleteCartProduct(product.id)} />
+  <p>Ваш список избранных пуст</p>
+) : (
+  cartProducts.map((product) => (
+    <div className="cart-product-card" key={product?.Product?.id}>
+      <img src={cross} alt="" onClick={() => handleDeleteCartProduct(product.id)} />
+      {product.Product && (
+        <>
           <img className="cart-product-image" src={`http://localhost:3002/${product.Product.image}`} alt={product.Product.name} />
           <p className="cart-product-name">{product.Product.name}</p>
-          <p className="cart-product-price">AMD {product.Product.price}</p>
+      
+      <p className="cart-product-price">AMD {product.Product.price}</p>
           <button onClick={() => updateQuantity(product.id, product.quantity + 1)}>+</button>
        
       <input value={product.quantity} readOnly  />
     
           <button onClick={() => updateQuantity(product.id, product.quantity - 1)}>-</button>
-       
+          </>
+      )}
         </div>
       )))}
        <div>
@@ -123,6 +133,3 @@ function CartProduct() {
 }
 
 export default CartProduct;
-
-
-

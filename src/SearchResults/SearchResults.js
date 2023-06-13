@@ -7,7 +7,7 @@ function SearchResults({ searchResults }) {
     <div>
       {searchResults.map((product) => (
         <div key={product.id}>
-          <Link  to={`/product/${product.id}`}>
+          <Link  to={`/product/${product.id}`}  style={{ textDecoration: 'none' }}>
             <img src={`http://localhost:3002/${product?.image}`} alt={product.name} />
           <p>{product.name}</p>
           <p>{product.price}</p>
