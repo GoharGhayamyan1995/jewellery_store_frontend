@@ -78,7 +78,7 @@ const fetchCartProducts = async () => {
       const response = await fetch(`http://localhost:3002/cartProduct/${id}`);
       const cartProductData = await response.json();
       setCartProducts(cartProductData);
-      localStorage.setItem('cartProducts', JSON.stringify(cartProductData));
+      // localStorage.setItem('cartProducts', JSON.stringify(cartProductData));
       console.log(cartProductData);
     }
   } catch (error) {
@@ -95,7 +95,7 @@ const fetchFavoriteItems = async () => {
       const response = await fetch(`http://localhost:3002/favoriteitem/${id}`);
       const favoriteProductsData = await response.json();
       setFavoriteItems(favoriteProductsData);
-      localStorage.setItem('favoriteItems', JSON.stringify(favoriteProductsData));
+      // localStorage.setItem('favoriteItems', JSON.stringify(favoriteProductsData));
 
       console.log(favoriteProductsData)
   } 

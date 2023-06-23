@@ -209,18 +209,18 @@ header:after {
   cursor: pointer;
 }
 
-.dropdown p:hover {
+/* .dropdown p:hover {
   background-color: #f2f2f2;
 }
 
 /* Добавьте эти стили для показа/скрытия dropdown */
-.dropdown {
+/* .dropdown {
   display: none;
 }
 
 .icon:hover .dropdown {
-  display: block;
-}
+  display: block; 
+} */
 
 
 /* .icons {
