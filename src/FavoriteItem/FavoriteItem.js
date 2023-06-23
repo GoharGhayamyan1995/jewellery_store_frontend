@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
 import { decodeToken } from 'react-jwt';
+import { Link } from 'react-router-dom';
 import './FavoriteItem.css'; // Импортируйте стили
 import { FavoriteListContext } from '../FavoriteListContext';
 
-import cross from '../CartProduct/cross.png'
+import cross from '../CartProduct/images/cross.png'
 
 function FavoriteItem() {
   // const [favoriteItems, setFavoriteItems] = useState([]);
@@ -46,27 +47,32 @@ function FavoriteItem() {
   };
   return (
     <div className="cart-products-container">
-      <h1>Избранные продукты:</h1>
+      <h2>ՆԱԽԸՆՏՐԱԾՆԵՐԻ ՑԱՆԿ</h2>
       {favoriteItems.length === 0 ? (
-        <p>Ваш список избранных пуст</p>
+        <p>Ձեր ընտրյալների ցանկը դատարկ է</p>
       ) : (
 
         favoriteItems.map((product) => (
+          
           <div className="cart-product-card" key={product?.Product?.id}>
-
             <img src={cross} alt="" onClick={() => handleDeleteFavoriteItem(product.id)} />
             {product.Product && (
               <>
+              <Link to={`/product/${product.Product.id}`} style={{ textDecoration: 'none' }}>
+
                 <img
                   className="cart-product-image"
                   src={`http://localhost:3002/${product.Product.image}`}
                   alt={product.Product.name}
                 />
+                  </Link>
                 <p className="cart-product-name">{product.Product.name}</p>
-                <p className="cart-product-price">{product.Product.price}</p>
+                <p className="cart-product-price"> AMD {product.Product.price}</p>
+               
               </>
             )}
           </div>
+          
         ))
       )}
     </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import { useContext } from 'react';
@@ -51,6 +51,8 @@ const AuthRegistrationForm = () => {
         setEmail('');
         setPassword('');
         setPhone('');
+        setSuccessMessage('Registration successful');
+
         return response.json();
       }  else {
         return response.json().then((data) => {
@@ -64,15 +66,7 @@ const AuthRegistrationForm = () => {
       setError('Ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
     });
 };
-//     .then((data) => {
-//       if (data.error) {
-//         setError(data.error);
-//         setSuccessMessage('');
-//       } else {
-//         setError('');
-//         setSuccessMessage(data.message);
-//       }
-//     })
+
 
 const fetchCartProducts = async () => {
   try {
@@ -101,7 +95,6 @@ const fetchFavoriteItems = async () => {
       const response = await fetch(`http://localhost:3002/favoriteitem/${id}`);
       const favoriteProductsData = await response.json();
       setFavoriteItems(favoriteProductsData);
-      // setContextFavoriteItems(favoriteProductsData);
       localStorage.setItem('favoriteItems', JSON.stringify(favoriteProductsData));
 
       console.log(favoriteProductsData)
@@ -110,6 +103,7 @@ const fetchFavoriteItems = async () => {
   console.error(error);
 }
 };
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -148,31 +142,33 @@ const fetchFavoriteItems = async () => {
       <div className="registration-form-container">
         <h2>Registration</h2>
         {successMessage && <p>{successMessage}</p>}
-        {error && <p>{error}</p>}
+        {error && <p className='error'>{error}</p>}
         <form onSubmit={handleRegistration}>
           {/* Fields for registration */}
           <label>
-            First Name:
+            <p>Անուն(մին․ 3 սիմվոլ)*</p>
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
           </label>
           <label>
-            Last Name:
-            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          <p>Ազգանուն(մին․ 3 սիմվոլ)*</p>
+
+            <input type="text"  value={lastName} onChange={(e) => setLastName(e.target.value)} />
           </label>
           <label>
-            City:
-            <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+          <p>Քաղաք(մին․ 3 սիմվոլ)*</p>
+            <input type="text"  value={city} onChange={(e) => setCity(e.target.value)} />
           </label>
           <label>
-            Email:
+          <p>էլ․ փոստ*</p>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label>
-            Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <p>Գաղտնաբառ*</p>
+            <input type="password"  value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
           <label>
-            Phone:
+          <p>Հեռախոս*</p>
+
             <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </label>
           <button type="submit">Register</button>
@@ -181,16 +177,16 @@ const fetchFavoriteItems = async () => {
 
       <div className="login-form-container">
         <h2>Login</h2>
-        {errorLogin && <p>{errorLogin}</p>}
+        {errorLogin && <p className='error'>{errorLogin}</p>}
         <form onSubmit={handleLogin}>
           {/* Fields for login */}
           <label>
-            Email:
+          <p>Էլ․ փոստի հասցե*</p>
             <input type="email" value={mail} onChange={(e) => setMail(e.target.value)} />
           </label>
           <label>
-            Password:
-            <input type="password" value={passw} onChange={(e) => setPassw(e.target.value)} />
+          <p>Գաղտնաբառ*</p>
+            <input type="password"   value={passw} onChange={(e) => setPassw(e.target.value)} />
           </label>
           <button type="submit">Login</button>
         </form>

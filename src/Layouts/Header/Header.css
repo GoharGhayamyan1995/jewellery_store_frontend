@@ -1,10 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
-header {
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap'); */
 
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
 .header-wrapper {
   position: relative;
 }
@@ -28,14 +23,14 @@ header:after {
 .logo {
   display: flex;
   align-items: center;
-justify-content: center;
+/* justify-content: center; */
 }
 
 .logo img {
  
   height: 60px;
   width: 150px;
-  margin-left:500px;
+  /* margin-left:500px; */
 }
 
 .icons {
@@ -66,7 +61,7 @@ justify-content: center;
 
 .nav {
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   align-items: center;
 }
 
@@ -76,7 +71,7 @@ justify-content: center;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    margin-left: 350px;
+    margin-left: 380px;
     gap: 40px;
    
 
@@ -87,7 +82,6 @@ font-weight:500;
 text-transform: uppercase;
 /* letter-spacing: 2px; */
 color: #332a2a;
-transition: color 0.3s ease-in-out;
   }
    /* .categories p:hover {
     color: #ff0000; 
@@ -160,7 +154,7 @@ header:after {
   content: "";
   width: 100%;
   height: 0.5px;
-  background-color: rgb(46, 54, 30);
+  background-color: rgb(44, 22, 145);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -181,8 +175,53 @@ header:after {
 .logo img {
   height: 60px;
   width: 150px;
-  margin-left: 500px;
+  margin-left: 550px;
 }
+/* .logout{
+   position: absolute;
+} 
+.dropdown {
+  position: relative;
+ 
+  right: 0;
+  background-color: #fcfcfc;
+  box-shadow: 0 0.2px 0.2px  rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 2;
+  cursor: pointer;
+} */
+.dropdown {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.dropdown p {
+  margin: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.dropdown p:hover {
+  background-color: #f2f2f2;
+}
+
+/* Добавьте эти стили для показа/скрытия dropdown */
+.dropdown {
+  display: none;
+}
+
+.icon:hover .dropdown {
+  display: block;
+}
+
 
 /* .icons {
   display: flex;

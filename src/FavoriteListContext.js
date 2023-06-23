@@ -22,18 +22,19 @@ export const FavoriteListProvider = ({ children }) => {
 
   const addToFavoriteList = async (productId) => {
     try {
-      const user = localStorage.getItem('token');
-      if (user) {
-        const decoded = decodeToken(user);
+      const token = localStorage.getItem('token');
+      if (token) {
+        const decoded = decodeToken(token);
         const requestData = {
           productId,
           userId: decoded.id,
         };
   
-        const response = await fetch("http://localhost:3002/favoriteitem", {
+        const response = await fetch('http://localhost:3002/favoriteitem', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': token,
           },
           body: JSON.stringify(requestData),
         });
@@ -43,7 +44,7 @@ export const FavoriteListProvider = ({ children }) => {
           console.log(responseData, 'data');
   
           // Обновление favoriteItems
-          const updatedFavoriteItems = [...favoriteItems, responseData];
+           const updatedFavoriteItems = [...favoriteItems, responseData];
           setFavoriteItems(updatedFavoriteItems);
   
           // Обновление itemsCount

@@ -1,56 +1,4 @@
-/* .more_info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .more_info img {
-    width: 500px;
-    height: auto;
- 
-  }
 
-  
-  .more_info h2 {
-    font-size: 24px;
-   
-  }
-  
-  .more_info h3 {
-    font-size: 18px;
-  
-  }
-
-
-  
- .free img{
-    width: 40px;
-    height: 40px;
- }
- .whatsapp img{
-    width: 40px;
-    height: 40px;
- }
- .free{
-    display: flex;
-    flex-wrap: wrap;
- }
- .whatsapp{
-    display: flex;
-    flex-wrap: wrap;
- }
-  
-  .more_info .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #ccc;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-
-   */
    .more_info {
     display: flex;
     align-items: center;
@@ -59,7 +7,7 @@
   
   .more_info img {
     width: 450px;
-    height: auto;
+    height: 450px;
     margin-top: 15px;
     margin-bottom: 15px;
   }
@@ -72,17 +20,26 @@
   
   .info h2,
   .info h3,
+  .info h4,
   .info p {
     margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    font-style: italic;
+    /* text-transform: uppercase; */
+    color: #333;
+    letter-spacing: 1px;
   }
   
   .info h2 {
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: 500;
   }
   
   .info h3 {
     font-size: 18px;
     margin-top: 20px;
+    font-weight: 500;
   }
   
   .info p {
@@ -98,38 +55,44 @@
   .free p,
   .whatsapp p {
     margin-left: 5px;
+    font-weight: 500;
   }
   
-  /* .info .icons {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .info .icons img {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-  } */
+ 
   
   .btn-container {
     display: flex;
+    justify-content: center;
     margin-top: 20px;
   }
   
   .btn {
     margin-right: 10px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 13px;
     color: azure;
-    background-color: #4f754a;
+    background-color: rgb(86, 76,128);
     border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .button{
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: rgb(86, 76,128);
+    /* background-color: rgb(86, 76,128); */
+    border: solid 1px rgb(86,76,128);
     cursor: pointer;
     border-radius: 5px;
   }
   
   .btn:hover {
     background-color: #545853;
+  }
+  .button:hover{
+    background-color: #bec2be;
+
   }
   .free{
     display: flex;
@@ -139,3 +102,4 @@
     display: flex;
     flex-wrap: wrap;
  }
+ 

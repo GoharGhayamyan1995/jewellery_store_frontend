@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Home/Home.css';
 import { Link } from 'react-router-dom';
-import tatikpapik from '../Home/foto/tatikpapik.jpg';
-import home from '../Home/foto/home-image.jpg';
+import home from '../Home/foto/հօմե3.jpg'
 
 function Home() {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -24,9 +23,6 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    console.log('latestProducts:', latestProducts);
-  }, [latestProducts]);
 
   return (
     <div className="home">

@@ -1,75 +1,8 @@
 
-/* .foto-tatikpapik {
-    width: 90%;
-    height: 500px;
-  }
-  
-  .line-container {
-    display: flex;
-    flex-wrap:wrap;
-    text-align: center;
-    margin: 20px 0;
-  }
-
-  
-  
-  .line {
-    border: none;
-    border-top: 0.5px solid rgb(23, 43, 30);
-    width: 40%;
-    margin: 10px auto;
-  }
-  
-  .text {
-    font-size: 18px;
-    font-weight: bold;
-  }
-.liniya{
-
-  width: 100%;
-  border: none;
-  border-top: 0.5px solid rgb(23, 43, 30);
- 
-} 
-/* .latesproducts {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-} */
-/* .latesproducts{
-  display: flex;
-  flex-wrap: wrap;
-}
-.latesproducts img {
-  width: 250px;
-  height: 250px;
- 
-} */
 .foto-tatikpapik {
-  width: 90%;
+  width: 96%;
   height: 300px;
 }
-
-/* .line-container {
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  margin: 20px 0;
-}
-
-.line {
-  border: none;
-  border-top: 0.5px solid rgb(23, 43, 30);
-  width: 40%;
-  margin: 10px auto;
-}
-
-.text {
-  font-size: 18px;
-  font-weight: bold;
-} */
 .line-container {
   display: flex;
   flex-wrap: wrap;
@@ -79,7 +12,7 @@
 
 .line {
   border: none;
-  border-top: 0.5px solid rgb(23, 43, 30);
+  border-top: 0.5px solid rgb(48, 60, 124);
   width: 40%;
   margin: 10px auto;
 }
@@ -112,7 +45,7 @@
 .liniya {
   width: 100%;
   border: none;
-  border-top: 0.5px solid rgb(23, 43, 30);
+  border-top: 0.5px solid rgb(48, 60, 124);
 }
 
 .latesproducts {
@@ -126,6 +59,7 @@
   width: 250px;
   height: 250px;
   margin-bottom: 20px;
+  margin-left: 20px;
 }
 
 .latesproducts img:hover {

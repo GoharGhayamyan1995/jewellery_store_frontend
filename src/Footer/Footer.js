@@ -1,8 +1,8 @@
 import React from 'react';
 import '../Footer/Footer.css'; 
 import { Link } from 'react-router-dom';
-import facebook from '../Footer/icons/icons8-facebook-новый-48 (1).png'
-import instagram from '../Footer/icons/icons8-instagram-48 (2).png'
+import facebook from '../Footer/images/icons8-facebook-новый-48 (1).png'
+import instagram from '../Footer/images/icons8-instagram-48 (2).png'
 
 function Footer() {
   return (
@@ -34,8 +34,9 @@ function Footer() {
           <Link to="/quality"style={{ textDecoration: 'none' }}>
           <li>Որակի երաշխավորում</li>
           </Link>
-          <li>Возврат товара</li>
-          <li>Уход за бижутерией</li>
+          <Link to="/care"style={{ textDecoration: 'none' }}>
+          <li>զարդերի խնամքը</li>
+          </Link>
         </ul>
       </div>
     </footer>

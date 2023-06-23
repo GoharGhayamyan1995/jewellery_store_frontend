@@ -7,6 +7,7 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [cartProductsCount, setCartProductsCount] = useState(0);
 
+
   useEffect(() => {
     const storedCartProducts = localStorage.getItem('cartProducts');
     if (storedCartProducts) {
@@ -25,19 +26,21 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (productId) => {
     try {
-      const user = localStorage.getItem('token');
-      if (user) {
-        const decoded = decodeToken(user);
-        const requestData = {
-          productId,
-          userId: decoded.id,
-          quantity: 1,
-        };
+      const token = localStorage.getItem('token');
+    if (token) {
+      const decoded = decodeToken(token);
+      const requestData = {
+        productId,
+        userId: decoded.id,
+        quantity: 1,
+      };
+
 
         const response = await fetch('http://localhost:3002/cartproduct', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': token,
           },
           body: JSON.stringify(requestData),
         });
@@ -46,9 +49,13 @@ export const CartProvider = ({ children }) => {
           const responseData = await response.json();
           console.log(responseData, 'data');
 
+
           // Update cartProducts and recalculate totalPrice
           const updatedCartProducts = [...cartProducts, responseData];
           setCartProducts(updatedCartProducts);
+          setCartProductsCount(cartProductsCount + 1);
+
+
         } else {
           console.error('Error occurred while adding to cart:', response.status);
         }
@@ -71,6 +78,7 @@ export const CartProvider = ({ children }) => {
         setCartProducts,
         cartProductsCount,
         addToCart,
+     
         
         // removeFromCart,
         // clearCart,

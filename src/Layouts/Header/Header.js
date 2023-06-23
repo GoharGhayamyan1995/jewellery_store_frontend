@@ -12,11 +12,11 @@ import { FavoriteListContext } from '../../FavoriteListContext';
 import { CartContext } from '../../CartContext';
 import { useNavigate } from 'react-router-dom';
 
-function Header({ searchResults, setSearchResults }) {
+function Header({setSearchResults }) {
   const navigate=useNavigate()
 
-  const { cartProducts,setCartProducts,cartProductsCount} = useContext(CartContext);
-  const { favoriteItems,setFavoriteItems,itemsCount} = useContext(FavoriteListContext);
+  const { setCartProducts,cartProductsCount} = useContext(CartContext);
+  const { setFavoriteItems,itemsCount} = useContext(FavoriteListContext);
 
   const { user, setUser } = useContext(UserContext);
   const [query, setQuery] = useState('');
@@ -49,14 +49,7 @@ function Header({ searchResults, setSearchResults }) {
     }
   };
 
-  useEffect(() => {
-    fetchCategories();
-    restoreUserFromLocalStorage();
-    restoreCartProductsFromLocalStorage(); 
-    restoreFavoriteItemsFromLocalStorage()// Восстановление товаров в корзине из localStorage
-
-  }, []);
-
+ 
   const fetchCategories = async () => {
     try {
       const response = await fetch('http://localhost:3002/category');
@@ -70,6 +63,12 @@ function Header({ searchResults, setSearchResults }) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (user.userName) {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  }, [user]);
 
   const restoreUserFromLocalStorage = () => {
     const storedUser = localStorage.getItem('user');
@@ -94,23 +93,16 @@ function Header({ searchResults, setSearchResults }) {
     }
   };
 
-  useEffect(() => {
-    if (user.userName) {
-      localStorage.setItem('user', JSON.stringify(user));
-    }
-  }, [user]);
+ 
 
   useEffect(() => {
-    if (cartProducts.length > 0) {
-      localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-    }
-  }, [cartProducts]);
+    fetchCategories();
+    restoreUserFromLocalStorage();
+    restoreCartProductsFromLocalStorage(); 
+    restoreFavoriteItemsFromLocalStorage()// Восстановление товаров в корзине из localStorage
 
-  useEffect(() => {
-    if (favoriteItems.length > 0) {
-      localStorage.setItem('favoriteItems', JSON.stringify(favoriteItems));
-    }
-  }, [favoriteItems]);
+  }, []);
+
 
   
     const handleLogout = () => {
@@ -120,8 +112,8 @@ function Header({ searchResults, setSearchResults }) {
       localStorage.removeItem('cartProducts');
     
       setUser('');
-       setFavoriteItems(''); 
-      setCartProducts(''); 
+       setFavoriteItems([]); 
+      setCartProducts([]); 
       navigate('/');
     };
 
@@ -151,24 +143,23 @@ function Header({ searchResults, setSearchResults }) {
                 <span>{cartProductsCount}</span>
               </Link>
             </div>
-            {user.userName ? (
-              <div className="icon">
-                <img src={key2} alt="" onClick={toggleDropdown} />
-                <span>{user.userName}</span>
-                <img src={arrow} alt="" onClick={toggleDropdown} />
-                {showDropdown && (
-                  <div className="dropdown">
-                    
-                      <p onClick={handleLogout}>Logout</p>
-                    
-                  </div>
-                )}
+           
+         {user.userName ? (
+          <div className="icon">
+            <img src={key2} alt="" />
+            <span>{user.userName}</span>
+            <img src={arrow} alt="" onClick={toggleDropdown} />
+            {showDropdown && (
+              <div className="dropdown">
+                <p onClick={handleLogout}>Logout</p>
               </div>
-            ) : (
+            )}
+          </div>
+        ) : (
               <div className="icon">
                 <img src={key2} alt="" />
                 <Link to="/auth"style={{ textDecoration: 'none' }}>
-                  <span className="login">Войти</span>
+                  <span className="login">ՄՈՒՏՔ</span>
                 </Link>
               </div>
             )}

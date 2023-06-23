@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState,useContext } from "react";
 import { decodeToken } from "react-jwt";
-import free from '../ProductInfo/free-delivery.png'
-import whatsapp from '../ProductInfo/whatsapp.png'
+import free from '../ProductInfo/images/free-delivery.png'
+import whatsapp from '../ProductInfo/images/whatsapp.png'
 import '../ProductInfo/ProductInfo.css'
 import { CartContext } from "../CartContext";
 import { FavoriteListContext } from "../FavoriteListContext";
@@ -11,10 +11,11 @@ import { FavoriteListContext } from "../FavoriteListContext";
 
 export default function Product() {
   // const { handleClick } = useContext(CountContext);
+  const [userAuthenticated, setUserAuthenticated] = useState(false);
 
   const { id } = useParams();
-  const [data, setData] = useState({});
-  const { addToCart } = useContext(CartContext);
+  const [data, setData] = useState([]);
+  const { addToCart} = useContext(CartContext);
   const { addToFavoriteList } = useContext(FavoriteListContext);
   useEffect(() => {
     console.log(data, "data");
@@ -22,88 +23,31 @@ export default function Product() {
     fetch('http://localhost:3002/one/' + id)
       .then((res) => res.json())
       .then((res) => setData(res));
-  }, [data, id]);
+  }, [id]);
 
+ 
+  useEffect(() => {
+    // Check user authentication status here
+    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
   
-  // useEffect(() => {
-  //   fetch(`http://localhost:3002/one/${id}`)
-  //     .then((res) => res.json())
-  //     .then((res) => setData(res));
-  // }, []);
-
-
-  // async function addToCart(productId) {
-  //   try {
-  //     const user = localStorage.getItem("token");
-  //     if (user) {
-  //       const decoded = decodeToken(user);
-  //       console.log(decoded);
-  //       const requestData = {
-  //         productId,
-  //         userId: decoded.id,
-  //         quantity: 1,
-  //       };
-
-  //       const response = await fetch("http://localhost:3002/cartproduct", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(requestData),
-  //       });
-
-  //       if (response.ok) {
-  //         const responseData = await response.json();
-  //         console.log(responseData, "data");
-  //       } else {
-  //         console.error("Error occurred while adding to cart:", response.status);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Error occurred while adding to cart:", error);
-  //   }
-  // }
-  // async function addToFavoriteList(productId) {
-  //   try {
-  //     const user = localStorage.getItem("token");
-  //     if (user) {
-  //       const decoded = decodeToken(user);
-  //       console.log(decoded);
-  //       const reqData = {
-  //         productId,
-  //         userId: decoded.id,
-         
-  //       };
-
-  //       const response = await fetch("http://localhost:3002/favoriteitem", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(reqData),
-  //       });
-
-  //       if (response.ok) {
-  //         const resData = await response.json();
-  //         console.log(resData, "data");
-  //       } else {
-  //         console.error("Error occurred while adding to favoritelist:", response.status);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Error occurred while adding to favoritelist:", error);
-  //   }
-  // }
-
+    if (token) {
+      // User is authenticated
+      setUserAuthenticated(true);
+    } else {
+      // User is not authenticated
+      setUserAuthenticated(false);
+    }
+  }, []);
+ 
   return (
     <div className="more_info">
 <img src={data?.image ? `http://localhost:3002/${data.image}` : ''} alt={data && data.name} />
       <div className="info">
         <h2>{data.name}</h2>
-        <h3>գինը` {data.price} AMD</h3>
+        <h3>գինը: {data.price} AMD</h3>
       
-        <p><b>մետաղի տեսակ՝</b> {data.metal}</p>
-        <p>{data.description}</p>
+        <h3>մետաղի տեսակ: {data.metal}</h3>
+        {/* <p>{data.description}</p> */}
         <div className="free">
        <img src={free} alt="" /> <p>ԱՆվճար առաքում սկսած 5000 դրամից</p>
        </div>
@@ -112,26 +56,36 @@ export default function Product() {
        </div>
      
        <div className="btn-container">
-  <button
-    className="btn"
-    onClick={(e) => {
-      e.preventDefault();
+       <button
+  className="btn"
+  onClick={(e) => {
+    e.preventDefault();
+    if (userAuthenticated) {
       addToCart(data.id);
-    }}
-  >
-    Add to cart
-  </button>
+    } else {
+      alert('Խնդրում ենք զամբյուղին կամ ընտրյալների ցանկին տվյալներ ավելացնելու համար գրանցվել, կամ մուտք գործել համակարգ');
+    }
+  }}
+>
+  Ավելացնել զամբյուղին
+</button>
+     
 
   <button
-    className="btn"
+    className="button"
     onClick={(e) => {
       e.preventDefault();
+      if (userAuthenticated) {
       addToFavoriteList(data.id);
+    } else {
+      alert('Խնդրում ենք զամբյուղին կամ ընտրյալների ցանկին տվյալներ ավելացնելու համար գրանցվել, կամ մուտք գործել համակարգ');
+    }
     }}
   >
-    Add to favoritelist
+    Ընտրյալների ցանկին
   </button>
 </div>
+
         
       </div>
     </div>

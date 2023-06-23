@@ -12,6 +12,8 @@ import CartProduct from './CartProduct/CartProduct';
 import FavoriteItem from './FavoriteItem/FavoriteItem';
 import About from './Footer/About'
 import Shops from './Footer/Shops'
+import Care from './Footer/Care'
+import CreateOrder from './Order/Order';
 
 function App() {
   
@@ -31,7 +33,8 @@ function App() {
     <Route path="/quality" element={<Quality/>}/>
     <Route path="/about" element={<About/>}/>
     <Route path="/shops" element={<Shops/>}/>
-
+    <Route path="/care" element={<Care/>}/>
+    <Route path="/cart/order" element={<CreateOrder/>}/>
 
     </Routes>
 <Footer/>
