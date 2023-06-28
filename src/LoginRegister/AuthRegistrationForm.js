@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import { useContext } from 'react';
@@ -22,87 +22,85 @@ const AuthRegistrationForm = () => {
   const [error, setError] = useState('');
   const [errorLogin, setErrorLogin] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const { setCartProducts} = useContext(CartContext);
+  const { setCartProducts } = useContext(CartContext);
   const { setFavoriteItems } = useContext(FavoriteListContext);
 
-  
+
 
   const handleRegistration = (e) => {
-  e.preventDefault();
-  fetch('http://localhost:3002/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      first_name: firstName,
-      last_name: lastName,
-      city,
-      email,
-      password,
-      phone,
-    }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        setFirstName('');
-        setLastName('');
-        setCity('');
-        setEmail('');
-        setPassword('');
-        setPhone('');
-        setSuccessMessage('Registration successful');
-
-        return response.json();
-      }  else {
-        return response.json().then((data) => {
-          if (data.error) {
-            setError(data.error);
-          }
-        });
-      }
+    e.preventDefault();
+    fetch('http://localhost:3002/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+        city,
+        email,
+        password,
+        phone,
+      }),
     })
-    .catch((error) => {
-      setError('Ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
-    });
-};
+      .then((response) => {
+        if (response.ok) {
+          setFirstName('');
+          setLastName('');
+          setCity('');
+          setEmail('');
+          setPassword('');
+          setPhone('');
+          setSuccessMessage('Registration successful');
+
+          return response.json();
+        } else {
+          return response.json().then((data) => {
+            if (data.error) {
+              setError(data.error);
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        setError('Ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
+      });
+  };
 
 
-const fetchCartProducts = async () => {
-  try {
-    const user = localStorage.getItem('token');
-    if (user) {
-      const decoded = decodeToken(user);
-      const id = decoded.id;
+  const fetchCartProducts = async () => {
+    try {
+      const user = localStorage.getItem('token');
+      if (user) {
+        const decoded = decodeToken(user);
+        const id = decoded.id;
 
-      const response = await fetch(`http://localhost:3002/cartProduct/${id}`);
-      const cartProductData = await response.json();
-      setCartProducts(cartProductData);
-      // localStorage.setItem('cartProducts', JSON.stringify(cartProductData));
-      console.log(cartProductData);
+        const response = await fetch(`http://localhost:3002/cartProduct/${id}`);
+        const cartProductData = await response.json();
+        setCartProducts(cartProductData);
+        console.log(cartProductData);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
-  }
-};
-const fetchFavoriteItems = async () => {
-  try {
-    const user = localStorage.getItem('token');
-    if (user) {
-      const decoded = decodeToken(user);
-      const id = decoded.id;
+  };
+  const fetchFavoriteItems = async () => {
+    try {
+      const user = localStorage.getItem('token');
+      if (user) {
+        const decoded = decodeToken(user);
+        const id = decoded.id;
 
-      const response = await fetch(`http://localhost:3002/favoriteitem/${id}`);
-      const favoriteProductsData = await response.json();
-      setFavoriteItems(favoriteProductsData);
-      // localStorage.setItem('favoriteItems', JSON.stringify(favoriteProductsData));
+        const response = await fetch(`http://localhost:3002/favoriteitem/${id}`);
+        const favoriteProductsData = await response.json();
+        setFavoriteItems(favoriteProductsData);
 
-      console.log(favoriteProductsData)
-  } 
-} catch (error) {
-  console.error(error);
-}
-};
+        console.log(favoriteProductsData)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   const handleLogin = (e) => {
@@ -120,7 +118,7 @@ const fetchFavoriteItems = async () => {
       .then((response) => response.json())
       .then((data) => {
         localStorage.setItem('token', data.jwt);
-        const { userName, role, jwt } = data;
+        const { userName } = data;
         setUser((prevUser) => ({ ...prevUser, userName: userName }));
         if (data.error) {
           setErrorLogin(data.error);
@@ -134,7 +132,7 @@ const fetchFavoriteItems = async () => {
           navigate('/auth');
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   return (
@@ -150,24 +148,24 @@ const fetchFavoriteItems = async () => {
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
           </label>
           <label>
-          <p>Ազգանուն(մին․ 3 սիմվոլ)*</p>
+            <p>Ազգանուն(մին․ 3 սիմվոլ)*</p>
 
-            <input type="text"  value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
           </label>
           <label>
-          <p>Քաղաք(մին․ 3 սիմվոլ)*</p>
-            <input type="text"  value={city} onChange={(e) => setCity(e.target.value)} />
+            <p>Քաղաք(մին․ 3 սիմվոլ)*</p>
+            <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
           </label>
           <label>
-          <p>էլ․ փոստ*</p>
+            <p>էլ․ փոստ*</p>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label>
-          <p>Գաղտնաբառ*</p>
-            <input type="password"  value={password} onChange={(e) => setPassword(e.target.value)} />
+            <p>Գաղտնաբառ*</p>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
           <label>
-          <p>Հեռախոս*</p>
+            <p>Հեռախոս*</p>
 
             <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </label>
@@ -181,12 +179,12 @@ const fetchFavoriteItems = async () => {
         <form onSubmit={handleLogin}>
           {/* Fields for login */}
           <label>
-          <p>Էլ․ փոստի հասցե*</p>
+            <p>Էլ․ փոստի հասցե*</p>
             <input type="email" value={mail} onChange={(e) => setMail(e.target.value)} />
           </label>
           <label>
-          <p>Գաղտնաբառ*</p>
-            <input type="password"   value={passw} onChange={(e) => setPassw(e.target.value)} />
+            <p>Գաղտնաբառ*</p>
+            <input type="password" value={passw} onChange={(e) => setPassw(e.target.value)} />
           </label>
           <button type="submit">Login</button>
         </form>

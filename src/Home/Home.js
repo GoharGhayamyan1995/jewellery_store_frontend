@@ -34,9 +34,9 @@ function Home() {
       </div>
       <div className="latesproducts">
         {latestProducts.map((product) => (
-          <Link to={`/product/${product.id}`} key={product.id}style={{ textDecoration: 'none' }}>
+          <Link to={`/product/${product.id}`} key={product.id} style={{ textDecoration: 'none' }}>
             <div>
-            <img src={product?.image ? `http://localhost:3002/${product.image}` : ''} alt={product?.name} />              <h3>{product.name}</h3>
+              <img src={product?.image ? `http://localhost:3002/${product.image}` : ''} alt={product?.name} />              <h3>{product.name}</h3>
               <p>AMD {product.price}</p>
             </div>
           </Link>

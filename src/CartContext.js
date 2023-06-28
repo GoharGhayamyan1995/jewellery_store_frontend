@@ -7,7 +7,6 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [cartProductsCount, setCartProductsCount] = useState(0);
 
-
   useEffect(() => {
     const storedCartProducts = localStorage.getItem('cartProducts');
     if (storedCartProducts) {
@@ -22,19 +21,16 @@ export const CartProvider = ({ children }) => {
     setCartProductsCount(cartProducts.length);
   }, [cartProducts]);
 
- 
-
   const addToCart = async (productId) => {
     try {
       const token = localStorage.getItem('token');
-    if (token) {
-      const decoded = decodeToken(token);
-      const requestData = {
-        productId,
-        userId: decoded.id,
-        quantity: 1,
-      };
-
+      if (token) {
+        const decoded = decodeToken(token);
+        const requestData = {
+          productId,
+          userId: decoded.id,
+          quantity: 1,
+        };
 
         const response = await fetch('http://localhost:3002/cartproduct', {
           method: 'POST',
@@ -50,10 +46,9 @@ export const CartProvider = ({ children }) => {
           console.log(responseData, 'data');
 
 
-          // Update cartProducts and recalculate totalPrice
           const updatedCartProducts = [...cartProducts, responseData];
           setCartProducts(updatedCartProducts);
-          setCartProductsCount(cartProductsCount + 1);
+          // setCartProductsCount(cartProductsCount + 1);
 
 
         } else {
@@ -66,10 +61,7 @@ export const CartProvider = ({ children }) => {
   };
 
 
-  // const clearCart = () => {
-  //   setCartProducts([]);
-  //   localStorage.removeItem('cartProducts');
-  // };
+
 
   return (
     <CartContext.Provider
@@ -78,10 +70,8 @@ export const CartProvider = ({ children }) => {
         setCartProducts,
         cartProductsCount,
         addToCart,
-     
-        
-        // removeFromCart,
-        // clearCart,
+
+
       }}
     >
       {children}

@@ -1,77 +1,74 @@
-
-
 .productsbycategory {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .productsbycategory > div {
-    width: 23%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-  }
-  .productsbycategory h3 {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    transition: color 0.3s;
-    text-decoration: none;
-  }
-  
-  .productsbycategory p {
-    font-size: 15px;
-    color: #333;
-    transition: color 0.3s;
-    text-decoration: none;
-  }
-  
-  /* .productsbycategory > div > a {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.productsbycategory>div {
+  width: 23%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.productsbycategory h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.productsbycategory p {
+  font-size: 15px;
+  color: #333;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+/* .productsbycategory > div > a {
     display: block;
     text-decoration: none;
     color: inherit;
     text-align: center;
     position: relative;
   } */
-  
-  .productsbycategory > div > a > img {
-    width: 250px;
-    height: 250px;
-    margin-bottom: 10px;
 
-  }
-  
-  .productsbycategory > div > a > h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  .productsbycategory > div > a > p {
-    font-size: 14px;
-    color: gray;
-  }
-  .productsbycategory > div > a > img {
-    transition: transform 0.3s;
-  }
-  
-  .productsbycategory > div > a:hover > img {
-    transform: scale(1.1);
-  }
-  
-  .productsbycategory > div > a > h3:hover,
-  .productsbycategory > div > a > p:hover {
- color:black;
-  }
-  .page {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  
-  .page button {
-    margin-right: 10px;
-  } 
+.productsbycategory>div>a>img {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 10px;
 
-  
-  
-  
+}
+
+.productsbycategory>div>a>h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.productsbycategory>div>a>p {
+  font-size: 14px;
+  color: gray;
+}
+
+.productsbycategory>div>a>img {
+  transition: transform 0.3s;
+}
+
+.productsbycategory>div>a:hover>img {
+  transform: scale(1.1);
+}
+
+.productsbycategory>div>a>h3:hover,
+.productsbycategory>div>a>p:hover {
+  color: black;
+}
+
+.page {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.page button {
+  margin-right: 10px;
+}

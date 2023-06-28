@@ -1,8 +1,7 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap'); */
-
 .header-wrapper {
   position: relative;
 }
+
 header:after {
   content: "";
   width: 100%;
@@ -12,22 +11,23 @@ header:after {
   bottom: 0;
   left: 0;
 }
+
 .logotip {
 
   display: flex;
   width: 100%;
   margin-bottom: 20px;
-  
+
 }
 
 .logo {
   display: flex;
   align-items: center;
-/* justify-content: center; */
+  /* justify-content: center; */
 }
 
 .logo img {
- 
+
   height: 60px;
   width: 150px;
   /* margin-left:500px; */
@@ -36,7 +36,7 @@ header:after {
 .icons {
   display: flex;
   margin-left: auto;
- 
+
 }
 
 .icon {
@@ -52,9 +52,10 @@ header:after {
 }
 
 .icon span {
-  font-size: 15px;  
+  font-size: 15px;
 }
-.login span{
+
+.login span {
   font-size: 14px;
 }
 
@@ -67,48 +68,52 @@ header:after {
 
 
 
-  .categories {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-left: 380px;
-    gap: 40px;
-   
+.categories {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-left: 380px;
+  gap: 40px;
 
-  }
-  .categories p{
-font-size: 14px;
-font-weight:500;
-text-transform: uppercase;
-/* letter-spacing: 2px; */
-color: #332a2a;
-  }
-   /* .categories p:hover {
+
+}
+
+.categories p {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  /* letter-spacing: 2px; */
+  color: #332a2a;
+}
+
+/* .categories p:hover {
     color: #ff0000; 
     cursor: pointer; 
     text-decoration: underline; 
   }   */
-  
-  .categories p::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 1px;
-    background-color: #332a2a; /* Use the same color as the text */
-    transition: width 0.3s ease-in-out;
-  }
-  
-  .categories p:hover::after {
-    width: 100%; /* Expand the line to full width on hover */
-  }
- 
-  .icons span {
-    text-decoration: none;
-    color: #1a1717;
-   
-  }
-  
- 
+
+.categories p::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  background-color: #332a2a;
+  /* Use the same color as the text */
+  transition: width 0.3s ease-in-out;
+}
+
+.categories p:hover::after {
+  width: 100%;
+  /* Expand the line to full width on hover */
+}
+
+.icons span {
+  text-decoration: none;
+  color: #1a1717;
+
+}
+
+
 
 .search {
   display: flex;
@@ -177,19 +182,7 @@ header:after {
   width: 150px;
   margin-left: 550px;
 }
-/* .logout{
-   position: absolute;
-} 
-.dropdown {
-  position: relative;
- 
-  right: 0;
-  background-color: #fcfcfc;
-  box-shadow: 0 0.2px 0.2px  rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  z-index: 2;
-  cursor: pointer;
-} */
+
 .dropdown {
   position: absolute;
   top: 50%;
@@ -208,122 +201,3 @@ header:after {
   padding: 5px 10px;
   cursor: pointer;
 }
-
-/* .dropdown p:hover {
-  background-color: #f2f2f2;
-}
-
-/* Добавьте эти стили для показа/скрытия dropdown */
-/* .dropdown {
-  display: none;
-}
-
-.icon:hover .dropdown {
-  display: block; 
-} */
-
-
-/* .icons {
-  display: flex;
-  margin-left: auto;
-}
-
-.icon {
-  display: flex;
-  align-items: flex-end;
-  margin-left: 20px;
-}
-
-.icon img {
-  width: 19px;
-}
-
-.icon span {
-  font-size: 15px;
-}
-
-.login span {
-  font-size: 14px;
-}
-
-.nav {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.categories {
-  display: flex;
-  justify-content: center;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  margin-bottom: 20px;
-  margin-left: 350px;
-  gap: 40px;
-}
-
-.search {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.search input[type='text'] {
-  height: 25px;
-  width: 100px;
-  padding-right: 30px;
-  border-radius: 10px;
-  border: solid 1px;
-}
-
-.search-button {
-  height: 30px;
-  width: 30px;
-  border: none;
-  background-color: transparent;
-  padding: 0;
-  margin-left: -30px;
-}
-
-.search-button img {
-  display: block;
-  height: 15px;
-  width: 15px;
-  margin: auto;
-}
-
-/* Респонсивные стили */
-/* .logotip {
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.logo img {
-  margin-left: 0;
-  margin-bottom: 10px;
-}
-
-.icons {
-  justify-content: center;
-  margin-left: 0;
-}
-
-.icon {
-  margin: 0 10px;
-}
-
-.categories {
-  margin-left: 0;
-  gap: 20px;
-}
-
-.search input[type='text'] {
-  width: auto;
-  flex-grow: 1;
-  margin-right: 10px;
-}
-
-.search-button {
-  margin-left: 0;
-}  */

@@ -29,7 +29,7 @@ export const FavoriteListProvider = ({ children }) => {
           productId,
           userId: decoded.id,
         };
-  
+
         const response = await fetch('http://localhost:3002/favoriteitem', {
           method: 'POST',
           headers: {
@@ -38,16 +38,14 @@ export const FavoriteListProvider = ({ children }) => {
           },
           body: JSON.stringify(requestData),
         });
-  
+
         if (response.ok) {
           const responseData = await response.json();
           console.log(responseData, 'data');
-  
-          // Обновление favoriteItems
-           const updatedFavoriteItems = [...favoriteItems, responseData];
+
+          const updatedFavoriteItems = [...favoriteItems, responseData];
           setFavoriteItems(updatedFavoriteItems);
-  
-          // Обновление itemsCount
+
           setItemsCount(itemsCount + 1);
         } else {
           console.error('Ошибка при добавлении в список избранного:', response.status);
@@ -60,7 +58,7 @@ export const FavoriteListProvider = ({ children }) => {
 
 
   return (
-    <FavoriteListContext.Provider value={{ favoriteItems, setFavoriteItems, itemsCount,addToFavoriteList }}>
+    <FavoriteListContext.Provider value={{ favoriteItems, setFavoriteItems, itemsCount, addToFavoriteList }}>
       {children}
     </FavoriteListContext.Provider>
   );

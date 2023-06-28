@@ -12,11 +12,11 @@ import { FavoriteListContext } from '../../FavoriteListContext';
 import { CartContext } from '../../CartContext';
 import { useNavigate } from 'react-router-dom';
 
-function Header({setSearchResults }) {
-  const navigate=useNavigate()
+function Header({ setSearchResults }) {
+  const navigate = useNavigate()
 
-  const { setCartProducts,cartProductsCount} = useContext(CartContext);
-  const { setFavoriteItems,itemsCount} = useContext(FavoriteListContext);
+  const { setCartProducts, cartProductsCount } = useContext(CartContext);
+  const { setFavoriteItems, itemsCount } = useContext(FavoriteListContext);
 
   const { user, setUser } = useContext(UserContext);
   const [query, setQuery] = useState('');
@@ -49,7 +49,7 @@ function Header({setSearchResults }) {
     }
   };
 
- 
+
   const fetchCategories = async () => {
     try {
       const response = await fetch('http://localhost:3002/category');
@@ -77,45 +77,24 @@ function Header({setSearchResults }) {
       setUser({ userName: user.userName });
     }
   };
-  const restoreCartProductsFromLocalStorage = () => {
-    const storedCartProducts = localStorage.getItem('cartProducts');
-    if (storedCartProducts) {
-      const cartProducts = JSON.parse(storedCartProducts);
-      setCartProducts(cartProducts);
-    }
-  };
-
-  const restoreFavoriteItemsFromLocalStorage = () => {
-    const storedFavoriteItems= localStorage.getItem('favoriteItems');
-    if (storedFavoriteItems) {
-      const favoriteItems = JSON.parse(storedFavoriteItems);
-      setFavoriteItems(favoriteItems);
-    }
-  };
-
- 
 
   useEffect(() => {
     fetchCategories();
     restoreUserFromLocalStorage();
-    restoreCartProductsFromLocalStorage(); 
-    restoreFavoriteItemsFromLocalStorage()// Восстановление товаров в корзине из localStorage
 
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('favoriteItems');
+    localStorage.removeItem('cartProducts');
 
-  
-    const handleLogout = () => {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      localStorage.removeItem('favoriteItems');
-      localStorage.removeItem('cartProducts');
-    
-      setUser('');
-       setFavoriteItems([]); 
-      setCartProducts([]); 
-      navigate('/');
-    };
+    setUser('');
+    setFavoriteItems([]);
+    setCartProducts([]);
+    navigate('/');
+  };
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -127,38 +106,38 @@ function Header({setSearchResults }) {
         <div className="logotip">
           <div className="logo">
             <Link to="/">
-            <img src={montirulogo1} alt="" />
+              <img src={montirulogo1} alt="" />
             </Link>
           </div>
           <div className="icons">
             <div className="icon">
-              <Link to="/favoritelist"style={{ textDecoration: 'none' }}>
+              <Link to="/favoritelist" style={{ textDecoration: 'none' }}>
                 <img src={heart} alt="" />
                 <span>{itemsCount}</span>
               </Link>
             </div>
             <div className="icon">
-              <Link to="/cart"style={{ textDecoration: 'none' }}>
+              <Link to="/cart" style={{ textDecoration: 'none' }}>
                 <img src={shoppingbag} alt="" />
                 <span>{cartProductsCount}</span>
               </Link>
             </div>
-           
-         {user.userName ? (
-          <div className="icon">
-            <img src={key2} alt="" />
-            <span>{user.userName}</span>
-            <img src={arrow} alt="" onClick={toggleDropdown} />
-            {showDropdown && (
-              <div className="dropdown">
-                <p onClick={handleLogout}>Logout</p>
-              </div>
-            )}
-          </div>
-        ) : (
+
+            {user.userName ? (
               <div className="icon">
                 <img src={key2} alt="" />
-                <Link to="/auth"style={{ textDecoration: 'none' }}>
+                <span>{user.userName}</span>
+                <img src={arrow} alt="" onClick={toggleDropdown} />
+                {showDropdown && (
+                  <div className="dropdown">
+                    <p onClick={handleLogout}>Logout</p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="icon">
+                <img src={key2} alt="" />
+                <Link to="/auth" style={{ textDecoration: 'none' }}>
                   <span className="login">ՄՈՒՏՔ</span>
                 </Link>
               </div>

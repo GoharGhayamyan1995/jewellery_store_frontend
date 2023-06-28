@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header/Header';
 import SearchResults from '../SearchResults/SearchResults';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 
 function Layout() {
   const [searchResults, setSearchResults] = useState([]);
@@ -12,8 +12,9 @@ function Layout() {
       <div>
         <Header searchResults={searchResults} setSearchResults={setSearchResults}  />
         <Routes>
-          <Route path="/search" element={<SearchResults searchResults={searchResults} />} />
+        <Route path="/search" element={<SearchResults searchResults={searchResults} />} />
         </Routes>
+        <Outlet/>
       </div>
  
   );

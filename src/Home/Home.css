@@ -1,8 +1,8 @@
-
 .foto-tatikpapik {
   width: 96%;
   height: 300px;
 }
+
 .line-container {
   display: flex;
   flex-wrap: wrap;
@@ -42,6 +42,7 @@
     font-size: 14px !important;
   }
 }
+
 .liniya {
   width: 100%;
   border: none;
@@ -65,12 +66,14 @@
 .latesproducts img:hover {
   transform: scale(1.1);
 }
+
 .about p {
   font-size: 16px;
   line-height: 2;
   color: #2c2525;
   font-style: italic;
 }
+
 .text {
   font-size: 14px;
   font-weight: bold;
@@ -79,6 +82,7 @@
   color: #333;
   letter-spacing: 2px;
 }
+
 .latesproducts h3 {
   font-size: 16px;
   font-weight: bold;
@@ -93,11 +97,3 @@
   transition: color 0.3s;
   text-decoration: none;
 }
-
-
-
-
-
-
-
-
